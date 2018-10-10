@@ -4,7 +4,7 @@ require './lib/messaging_adapter.rb'
 
 puts 'Test Started..'
 # Use the broker with the default adapter
-broker = MessagingAdapter::MessageBroker.new(:RabbitMQEx)
+broker = MessagingAdapter::MessageBroker.new(:RabbitMQ)
 
 t1 = Thread.new do
   broker.publish('test_queue', x: 2, y: 5)

@@ -8,7 +8,7 @@ module MessagingAdapter
   class MessageBroker
     include MessageBrokerAdapter
 
-    def initialize(adapter = :RabbitMQEx)
+    def initialize(adapter = :RabbitMQ)
       @adapter = MessageBrokerAdapter.const_get(adapter.to_s)
     end
 

@@ -5,7 +5,7 @@ require 'json'
 
 module MessageBrokerAdapter
   # Adapter implements RabbitMQ Exchange
-  class RabbitMQEx
+  class RabbitMQ
     @pub_conn_locker = Mutex.new
     @pub_channel_locker = Mutex.new
     @sub_conn_locker = Mutex.new
