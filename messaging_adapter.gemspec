@@ -21,4 +21,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency('bunny', '~> 2.12')
   s.add_development_dependency('json', '~> 2.1')
   s.require_paths = ['lib']
+  s.metadata = {
+    documentation_uri: 'https://github.com/tamhub/messaging-adapter',
+    homepage_uri: 'https://github.com/tamhub/messaging-adapter',
+    source_code_uri: 'https://github.com/tamhub/messaging-adapter'
+  }
 end
