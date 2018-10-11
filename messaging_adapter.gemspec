@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.date        = '2018-10-10'
   s.summary     = 'Messaging adapter for Ruby.'
   s.description = 'Makes it easy to pub/sup with many message brokers.'
-  s.authors     = ['Ayyoub Jadoo']
+  s.authors     = ['Ayyoub Jadoo @ TAM']
   s.email       = 'ayyoubjadoo@gmail.com'
   s.files       = [
     'lib/messaging_adapter.rb',
