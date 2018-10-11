@@ -13,7 +13,7 @@ To use this gem and apply the instructions in the example below you must have th
 
 * If you are confused a little bit then you should read about `message brokers` and especially `RabbitMQ` which is used in the below example.
 
-* Please note that points #3 and #4 are optional and wrtten just to make the example mentioned below work.
+* Please note that points #3 and #4 are optional and written just to make the example mentioned below work.
 
 ## Usage
 1. In your Ruby application install the gem from the `.gem` file using the terminal.
