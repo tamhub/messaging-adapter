@@ -43,8 +43,41 @@ To use this gem and apply the instructions in the example below you must have th
 
 For more details please check the `test.rb` in the root of this repository.
 
+## Usage in Rails application
+1. Add the gem to the `Gemfile` like this:
+    ```ruby
+    gem 'messaging-adapter'
+    ```
+
+2. Run `bundle install` command in the terminal.
+
+3. Go to the `config/application.rb` file in your application.
+
+4. Add the following line before the `Bundler.require` call:
+    ```ruby
+    require "messaging_adapter"
+    ```
+
+5. Add the following code in the last of the `Application` class:
+    ```ruby
+    class << self
+      attr_reader :msg_broker
+    end
+    
+    config.after_initialize do
+      @msg_broker = MessagingAdapter::MessageBroker.new(:RabbitMQ)
+    end
+    ```
+    Here we declared a class variable `msg_broker` with reader accessor to be our single instance of the `MessageBroker` in the application, this will insure that the connection with the message broker (RabbitMQ for example) will be managed correctly.
+
+6. In your controller for example if you want to publish a message you can do it by writing in your action:
+    ```ruby
+    RailsApp01::Application.msg_broker.publish('test', 'Hey there!!')
+    ```
+    Our example application named `rails-app01` so we accessed the `msg_broker` on the `Application` class in the application module `RailsApp01`.
+    
 ## Configurations
-* The follwoing are the environment variables which can be used to connect to the message broker (RabbitMQ or Kafka) with their default values if not provided:
+* The follwoing are the environment variables which can be used in `.env` files to connect to the message broker (RabbitMQ or Kafka) with their default values if not provided:
     - MessageBroker_Host="localhost"
     - MessageBroker_Port="5672"
     - MessageBroker_User="guest"
