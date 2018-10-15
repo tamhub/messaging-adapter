@@ -4,14 +4,14 @@ GEM
     amq-protocol (2.3.0)
     bunny (2.12.0)
       amq-protocol (~> 2.3, >= 2.3.0)
-    json (2.1.0)
+    json (1.8.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  bunny
-  json
+  bunny (~> 2.12)
+  json (~> 1.8)
 
 RUBY VERSION
    ruby 2.4.2p198

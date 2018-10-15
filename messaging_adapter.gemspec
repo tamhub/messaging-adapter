@@ -17,9 +17,9 @@ Gem::Specification.new do |s|
     'http://rubygems.org/gems/messaging-adapter'
   s.license = 'MIT'
   s.add_runtime_dependency('bunny', '~> 2.12')
-  s.add_runtime_dependency('json', '~> 2.1')
+  s.add_runtime_dependency('json', '~> 1.8')
   s.add_development_dependency('bunny', '~> 2.12')
-  s.add_development_dependency('json', '~> 2.1')
+  s.add_development_dependency('json', '~> 1.8')
   s.require_paths = ['lib']
   s.metadata = {
     'documentation_uri' => 'https://github.com/tamhub/messaging-adapter',
