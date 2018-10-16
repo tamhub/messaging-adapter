@@ -35,8 +35,8 @@ module MessageBrokerAdapter
 
     def self.subscribe(queue, options = {})
       q = subscriber_channel.queue(queue, passive: true)
+      
       options[:block] ||= options[:block].nil? ? true : options[:block]
-      puts options[:block]
       q.subscribe(block: options[:block]) do |delivery_info, _properties, payload|
         yield(payload)
       end
