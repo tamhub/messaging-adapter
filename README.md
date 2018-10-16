@@ -75,15 +75,26 @@ For more details please check the `test.rb` in the root of this repository.
     RailsApp01::Application.msg_broker.publish('test', 'Hey there!!')
     ```
     Our example application named `rails-app01` so we accessed the `msg_broker` on the `Application` class in the application module `RailsApp01`.
-    
+
+
+## Options
+There are some options can be passed as a hash when using `publish` and `subscribe` methods:
+1. `publish` options:
+    * `direct_to_q`: boolean value (for RabbitMQ adapter), `false` by default, if `true` then the message will be published to the queue directly, not to an exchange;
+        `b.publish('registration', 'my message')`: this will publish a message to an exchange (router) named `registration`.
+        `b.publish('registration', 'my message', direct_to_q: true)`: this will publish a message directlyto a queue named `registration`.
+
+2. `subscribe` options:
+    * `block`: boolean value (for RabbitMQ adapter), `true` by default, if `true` the subscriber will block the caller thread while working, otherwise no thread blocking.
+
+
 ## Configurations
-* The follwoing are the environment variables which can be used in `.env` files to connect to the message broker (RabbitMQ or Kafka) with their default values if not provided:
+The follwoing are the environment variables which can be used in `.env` files to connect to the message broker (RabbitMQ or Kafka) with their default values if not provided:
     - MessageBroker_Host="localhost"
     - MessageBroker_Port="5672"
     - MessageBroker_User="guest"
     - MessageBroker_Pass="guest"
-    - MessageBroker_RabbitMQ_Block="true"
 
 Please check the `.env.example` file for more details.
 
-* This documentation will be improved more and more in future.
+* This documentation will be improved more and more in the future.
