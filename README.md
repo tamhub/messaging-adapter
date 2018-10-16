@@ -81,7 +81,9 @@ For more details please check the `test.rb` in the root of this repository.
 There are some options can be passed as a hash when using `publish` and `subscribe` methods:
 1. `publish` options:
     * `direct_to_q`: boolean value (for RabbitMQ adapter), `false` by default, if `true` then the message will be published to the queue directly, not to an exchange;
+
         `b.publish('registration', 'my message')`: this will publish a message to an exchange (router) named `registration`.
+
         `b.publish('registration', 'my message', direct_to_q: true)`: this will publish a message directlyto a queue named `registration`.
 
 2. `subscribe` options:
@@ -90,10 +92,10 @@ There are some options can be passed as a hash when using `publish` and `subscri
 
 ## Configurations
 The follwoing are the environment variables which can be used in `.env` files to connect to the message broker (RabbitMQ or Kafka) with their default values if not provided:
-    - MessageBroker_Host="localhost"
-    - MessageBroker_Port="5672"
-    - MessageBroker_User="guest"
-    - MessageBroker_Pass="guest"
+* MessageBroker_Host="localhost"
+* MessageBroker_Port="5672"
+* MessageBroker_User="guest"
+* MessageBroker_Pass="guest"
 
 Please check the `.env.example` file for more details.
 
