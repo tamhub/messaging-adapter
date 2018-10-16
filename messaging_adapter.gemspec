@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'messaging-adapter'
-  s.version     = '1.0.6'
+  s.version     = '1.0.7'
   s.date        = '2018-10-10'
   s.summary     = 'Messaging adapter for Ruby.'
   s.description = 'Makes it easy to pub/sup with many message brokers.'
