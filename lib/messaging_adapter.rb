@@ -12,12 +12,12 @@ module MessagingAdapter
       @adapter = MessageBrokerAdapter.const_get(adapter.to_s)
     end
 
-    def publish(topic, payload)
-      @adapter.publish(topic, payload)
+    def publish(topic, payload, options = {})
+      @adapter.publish(topic, payload, options)
     end
 
-    def subscribe(topic)
-      @adapter.subscribe(topic) { |payload| yield(payload) }
+    def subscribe(topic, options = {})
+      @adapter.subscribe(topic, options) { |payload| yield(payload) }
     end
 
     def self.available_adapters
