@@ -20,17 +20,22 @@ module MessageBrokerAdapter
       attr_reader :sub_channel_locker
     end
 
-    def self.publish(topic, payload)
-      exchange = publisher_channel.fanout(topic)
-      exchange.publish(payload.to_json)
+    def self.publish(topic, payload, options = {})
+      if options[:direct_to_q] == true
+        q = publisher_channel.queue(topic, passive: true)
+        q.publish(payload.to_json)
+      else
+        exchange = publisher_channel.fanout(topic, passive: true)
+        exchange.publish(payload.to_json)
+      end
 
       puts '- RMQ: Message published successfully on topic ' \
            "#{topic} [#{payload}]"
     end
 
-    def self.subscribe(queue)
-      q = subscriber_channel.queue(queue, durable: true)
-      q.subscribe(block: blocking_subscriber?) do |_delivery_info, _properties, payload|
+    def self.subscribe(queue, options = {})
+      q = subscriber_channel.queue(queue, passive: true)
+      q.subscribe(block: options[:block] || true) do |delivery_info, _properties, payload|
         yield(payload)
       end
 
@@ -42,12 +47,9 @@ module MessageBrokerAdapter
         host: ENV['MessageBroker_Host'] || 'localhost',
         port: ENV['MessageBroker_Port'] || '5672',
         username: ENV['MessageBroker_User'] || 'guest',
-        password: ENV['MessageBroker_Pass'] || 'guest'
+        password: ENV['MessageBroker_Pass'] || 'guest',
+        vhost: ENV['MessageBroker_RabbitMQ_Vhost'] || '/'
       }
-    end
-
-    def self.blocking_subscriber?
-      (ENV['MessageBroker_RabbitMQ_Block'] || 'true') == 'true'
     end
 
     def self.recover_connection(conn, locker)
