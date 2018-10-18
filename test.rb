@@ -10,7 +10,7 @@ broker = MessagingAdapter::MessageBroker.new(:RabbitMQ)
 t1 = Thread.new do
   broker.publish('test', x: 2, y: 5)
   broker.publish('test', x: 29, y: 46)
-  broker.publish('test_queue', {x: 34, y: 89}, direct_to_q: true)
+  broker.publish('test_queue', { x: 34, y: 89 }, direct_to_q: true)
   broker.subscribe('test_queue') do |payload|
     puts "[x] Received message: #{payload}"
   end

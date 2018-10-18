@@ -29,19 +29,22 @@ module MessageBrokerAdapter
         exchange.publish(payload.to_json)
       end
 
-      puts '- RMQ: Message published successfully on topic ' \
-           "#{topic} [#{payload}]"
+      puts "- RMQ: Published #{payload.to_json} on #{topic}" if debug_mode?
     end
 
     def self.subscribe(queue, options = {})
       q = subscriber_channel.queue(queue, passive: true)
-      
+
       options[:block] ||= options[:block].nil? ? true : options[:block]
-      q.subscribe(block: options[:block]) do |delivery_info, _properties, payload|
-        yield(payload)
+      q.subscribe(block: options[:block]) do |_del_info, _props, payload|
+        yield(JSON.parse(payload))
       end
 
-      puts "- RMQ: Subscribed successfully to the topic #{queue}"
+      puts "- RMQ: Subscribed successfully to the topic #{queue}" if debug_mode?
+    end
+
+    def self.debug_mode?
+      ENV['MessageBroker_Debug'] == 'true'
     end
 
     def self.connection_configs
@@ -72,7 +75,8 @@ module MessageBrokerAdapter
     def self.publisher_channel
       if Thread.current[:rmq_pub_channel].nil?
         pub_channel_locker.synchronize do
-          Thread.current[:rmq_pub_channel] ||= publisher_connection.create_channel
+          Thread.current[:rmq_pub_channel] ||= publisher_connection
+                                               .create_channel
         end
       else
         Thread.current[:rmq_pub_channel]
@@ -93,7 +97,8 @@ module MessageBrokerAdapter
     def self.subscriber_channel
       if Thread.current[:rmq_sub_channel].nil?
         sub_channel_locker.synchronize do
-          Thread.current[:rmq_sub_channel] ||= subscriber_connection.create_channel
+          Thread.current[:rmq_sub_channel] ||= subscriber_connection
+                                               .create_channel
         end
       else
         Thread.current[:rmq_sub_channel]

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 # require the adapters
-Dir[File.dirname(__FILE__) + '/messaging_adapter/adapters/*.rb'].each { |file| require file }
+Dir[File.dirname(__FILE__) + '/messaging_adapter/adapters/*.rb']
+  .each { |file| require file }
 
 module MessagingAdapter
   # MessageBroker class to create broker objects specifying the adapter type
