@@ -2,6 +2,12 @@
 
 require './lib/messaging_adapter.rb'
 
+ENV['MessageBroker_Host'] = 'localhost'
+ENV['MessageBroker_Port'] = '5672'
+ENV['MessageBroker_User'] = 'guest'
+ENV['MessageBroker_Pass'] = 'guest'
+ENV['MessageBroker_RabbitMQ_Vhost'] = '/'
+
 puts 'Test Started..'
 
 # Use the broker with the default adapter
